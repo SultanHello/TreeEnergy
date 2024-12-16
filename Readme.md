@@ -5,7 +5,7 @@ This is a Telegram bot that helps users create, see, and delete categories. The 
 ## Technologies used
 - **Java**
 - **Spring Boot**
-- **Docker** (for containerization and deployment)
+- **Docker** (for containerization)
 - **Maven** (for building the project)
 
 ## Main functionality
