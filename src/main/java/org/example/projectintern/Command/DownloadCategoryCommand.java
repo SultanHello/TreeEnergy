@@ -18,6 +18,16 @@ import java.util.List;
 @Slf4j
 public class DownloadCategoryCommand implements Command{
     private final CategoryService categoryService;
+
+
+    /**
+     * Executes the command to download all categories as an Excel file and send it to the user.
+     *
+     * @param command the full text of the command (currently unused)
+     * @param chatId the user's chat ID, used to send the generated file
+     * @return a {@link SendDocument} object containing the Excel file to be sent to the user
+     * @throws IOException if an error occurs while generating the Excel file
+     */
     @Override
     public Object execute(String command, Long chatId) throws IOException {
         List<Category> categories =categoryService.findByParentIsNullAndChatId(chatId);

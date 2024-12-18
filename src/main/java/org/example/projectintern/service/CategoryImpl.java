@@ -185,6 +185,17 @@ public class CategoryImpl implements CategoryService {
         return tree.toString();
     }
 
+
+
+
+    /**
+     * Recursively builds a tree-like string representation of categories with indentation to represent hierarchical levels.
+     *
+     * @param category the category to be processed and added to the tree
+     * @param builder a StringBuilder object used to accumulate the string representation of the tree
+     * @param level the current level of indentation, indicating the depth of the category in the hierarchy
+     */
+
     private void buildTree(Category category, StringBuilder builder, int level) {
         // Using StringBuilder to create a string with indentations
 

@@ -18,8 +18,12 @@ This is a Telegram bot that helps users create, see, and delete categories. The 
  
 
 ## Run
+-Run the command to build the project:
+```bash
+./mvnw clean package -DskipTests
+``` 
 
-- First, create a `.env` file and specify the settings in it:
+- First, create a `.env` file and put the settings in it:
 ```bash
 SPRING_DATASOURCE_URL=YOUR_URL
 SPRING_DATASOURCE_USERNAME=YOUR_USERNAME
@@ -27,15 +31,9 @@ SPRING_DATASOURCE_PASSWORD=YOUR_PASSWORD
 TG_BOT_NAME=YOUR_BOT_NAME
 TG_BOT_TOKEN=YOUR_BOT_TOKEN
 ```
-**build**
-- In the terminal, run the following command to clean and package the project:
+-to run
 ```bash
-  mvn clean package
-```
-**Start the application**
-- then in console write 
-```bash
-  docker compose up --build
+docker-compose --env-file .env up --build
 ```
 **Stop the application**
 - in console write
