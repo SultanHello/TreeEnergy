@@ -19,8 +19,4 @@ bot:
 
 server:
   port: 8081
-#telegram:
-#  bot:
-#    username: tree_energy_bot
-#    token: 7372057344:AAFh8qMcG1RAreOClaM9AUPSj-f6LYr9HbQ
 
