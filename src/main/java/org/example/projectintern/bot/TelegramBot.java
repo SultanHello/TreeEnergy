@@ -2,7 +2,10 @@ package org.example.projectintern.bot;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.projectintern.Command.*;
+import org.example.projectintern.config.TelegramBotConfig;
 import org.example.projectintern.factory.CommandResponseFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -19,6 +22,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final String botName; // Name of the bot
     private final Map<String, Command> commands = new HashMap<>(); // List of available commands
     private final CommandResponseFactory commandResponseFactory; // Factory for creating responses
+    private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
+
 
     public TelegramBot(String botName, String token, CreateCategoryCommand addCategoryCommand, ViewCategoryCommand viewCategoryCommand, DeleteCategoryCommand deleteCategoryCommand, CommandResponseFactory commandResponseFactory, DownloadCategoryCommand downloadCategoryCommand) {
         super(token);

@@ -2,9 +2,12 @@ package org.example.projectintern.Command;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.projectintern.config.TelegramBotConfig;
 import org.example.projectintern.generator.ExcelGenerator;
 import org.example.projectintern.model.Category;
 import org.example.projectintern.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
@@ -14,10 +17,16 @@ import java.io.IOException;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
-@Slf4j
+
 public class DownloadCategoryCommand implements Command{
     private final CategoryService categoryService;
+    public DownloadCategoryCommand(CategoryService categoryService){
+        this.categoryService = categoryService;
+
+    }
+    private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
+
+
 
 
     /**

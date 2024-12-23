@@ -40,3 +40,8 @@ docker-compose --env-file .env up --build
 ```bash
   docker compose down
 ```
+
+**For run test**
+```bash
+  mvn test
+```

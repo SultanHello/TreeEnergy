@@ -4,7 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.projectintern.Command.*;
 import org.example.projectintern.bot.TelegramBot;
 import org.example.projectintern.factory.DefaultCommandResponseFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -15,8 +18,10 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
  * Configuration class for initializing and registering the Telegram bot.
  */
 @Configuration
-@Slf4j
+
 public class TelegramBotConfig {
+    private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
+
 
     /**
      * Bean for creating and registering a Telegram bot.
@@ -32,6 +37,7 @@ public class TelegramBotConfig {
      * @return a fully initialized TelegramBot instance
      */
     @Bean
+    @ConditionalOnProperty(name = "telegram.bot.enabled", havingValue = "true", matchIfMissing = true)
     public TelegramBot telegramBot(@Value("${bot.name}") String botName,
                                    @Value("${bot.token}") String token,
                                    CreateCategoryCommand createCategoryCommand,

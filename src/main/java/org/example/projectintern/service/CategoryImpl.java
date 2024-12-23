@@ -2,8 +2,11 @@ package org.example.projectintern.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.projectintern.config.TelegramBotConfig;
 import org.example.projectintern.model.Category;
 import org.example.projectintern.repository.CategoryRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +17,18 @@ import java.util.Optional;
  * Service for adding, removing, and retrieving categories from the database.
  */
 @Service
-@RequiredArgsConstructor
+
 @Transactional(readOnly = true)
-@Slf4j
+
 public class CategoryImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+    public CategoryImpl(CategoryRepository categoryRepository){
+        this.categoryRepository =categoryRepository;
+
+    }
+    private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
+
+
 
     /**
      * Adding a root category.

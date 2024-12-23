@@ -1,7 +1,10 @@
 package org.example.projectintern.Command;
 
 import lombok.RequiredArgsConstructor;
+import org.example.projectintern.config.TelegramBotConfig;
 import org.example.projectintern.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,11 +12,17 @@ import lombok.extern.slf4j.Slf4j;
  * Command to remove a category from the database.
  */
 @Component
-@RequiredArgsConstructor
-@Slf4j
+
 public class DeleteCategoryCommand implements Command {
+    private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
+
 
     private final CategoryService categoryService;
+    public DeleteCategoryCommand(CategoryService categoryService){
+        this.categoryService = categoryService;
+
+    }
+
 
     /**
      * Executes the command to remove a category.

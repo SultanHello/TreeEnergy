@@ -2,18 +2,27 @@ package org.example.projectintern.Command;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.projectintern.config.TelegramBotConfig;
 import org.example.projectintern.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
  * Command to add a category, either as a root or as a child of an existing parent.
  */
 @Component
-@RequiredArgsConstructor
-@Slf4j
+
+
 public class CreateCategoryCommand implements Command {
+    private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
+
 
     private final CategoryService categoryService;
+    public CreateCategoryCommand(CategoryService categoryService){
+        this.categoryService = categoryService;
+    }
+
 
     /**
      * Executes the add category command.

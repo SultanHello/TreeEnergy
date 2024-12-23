@@ -51,6 +51,26 @@ public class Category {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Category> children = new ArrayList<>();
 
+    public String getName() {
+        return name;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
+    }
+
     public Category() {
 
     }

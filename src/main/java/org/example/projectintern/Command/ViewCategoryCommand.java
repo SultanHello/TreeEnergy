@@ -1,7 +1,10 @@
 package org.example.projectintern.Command;
 
 import lombok.RequiredArgsConstructor;
+import org.example.projectintern.config.TelegramBotConfig;
 import org.example.projectintern.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,11 +12,15 @@ import lombok.extern.slf4j.Slf4j;
  * Command to view all categories in a tree format from the database.
  */
 @Component
-@RequiredArgsConstructor
-@Slf4j
+
 public class ViewCategoryCommand implements Command {
+    private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
+
 
     private final CategoryService categoryService;
+    public ViewCategoryCommand(CategoryService categoryService){
+        this.categoryService=categoryService;
+    }
 
     /**
      * Executes the command to view all categories.
