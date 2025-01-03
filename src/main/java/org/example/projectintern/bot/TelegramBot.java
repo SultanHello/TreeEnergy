@@ -16,7 +16,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Slf4j
+
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final String botName; // Name of the bot
@@ -24,7 +24,17 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final CommandResponseFactory commandResponseFactory; // Factory for creating responses
     private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
 
-
+    /**
+     * Initializes the Telegram bot with its name, token, and command handlers.
+     *
+     * @param botName                the name of the bot as registered in Telegram.
+     * @param token                  the bot's access token for Telegram API.
+     * @param addCategoryCommand     command to handle adding categories.
+     * @param viewCategoryCommand    command to handle viewing the category tree.
+     * @param deleteCategoryCommand  command to handle deleting categories.
+     * @param commandResponseFactory factory to generate responses for basic commands like /help or /start.
+     * @param downloadCategoryCommand command to handle downloading the category tree as an Excel file.
+     */
     public TelegramBot(String botName, String token, CreateCategoryCommand addCategoryCommand, ViewCategoryCommand viewCategoryCommand, DeleteCategoryCommand deleteCategoryCommand, CommandResponseFactory commandResponseFactory, DownloadCategoryCommand downloadCategoryCommand) {
         super(token);
         this.botName = botName;
@@ -34,37 +44,51 @@ public class TelegramBot extends TelegramLongPollingBot {
         commands.put("/download", downloadCategoryCommand);// Add a command to download excel
         this.commandResponseFactory = commandResponseFactory; // Initialize the response factory
     }
-
+    /**
+     * Processes incoming updates from Telegram.
+     * Handles text messages to execute appropriate bot commands
+     * and sends responses or files back to the user.
+     *
+     * @param update the incoming update containing the user's message.
+     */
     @Override
-    public void onUpdateReceived(Update update){
+    public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
             long chatId = message.getChatId();
+
             if (message.hasText()) {
                 String messageText = message.getText();
                 String response = "";
+
                 if (messageText.equals("/help") || messageText.equals("/start")) {
+                    // Generate response for /help or /start commands
                     response = commandResponseFactory.createResponse(messageText);
-                }else {
-                    // Handle other commands
-                    Object responseObject = handleCommand(messageText, chatId);
+                } else {
+                    // Process other commands
                     try {
-                        if(messageText.equals("/download")){
+                        Object responseObject = handleCommand(messageText, chatId);
+
+                        if (messageText.equals("/download")) {
+                            // Handle file download command
                             execute((SendDocument) responseObject);
-                        }else{
+                        } else {
                             response = responseObject.toString();
                         }
-                    }catch (TelegramApiException e){
-                        throw new RuntimeException("error with telegramApi");
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException("Error while interacting with Telegram API", e);
                     }
                 }
-                sendMessage(chatId, response);
 
+                // Send the generated response to the user
+                sendMessage(chatId, response);
             } else {
-                sendMessage(chatId, "Invalid command. Use /help to see the list of commands."); // Response for wrong input
+                // Inform the user about invalid input
+                sendMessage(chatId, "Invalid command. Use /help to see the list of commands.");
             }
         }
     }
+
 
     /**
      * Handles user commands based on the command list.
@@ -110,6 +134,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
+    /**
+     * Returns the bot's username as registered in Telegram.
+     * This name is used to identify the bot in the Telegram interface.
+     *
+     * @return the bot's username.
+     */
     @Override
     public String getBotUsername() {
         return this.botName; // Return the bot's name

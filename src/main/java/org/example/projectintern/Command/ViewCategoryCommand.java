@@ -18,9 +18,11 @@ public class ViewCategoryCommand implements Command {
 
 
     private final CategoryService categoryService;
+    // Constructor for creating the command to view a category
     public ViewCategoryCommand(CategoryService categoryService){
-        this.categoryService=categoryService;
+        this.categoryService = categoryService; // Store the reference to the category service
     }
+
 
     /**
      * Executes the command to view all categories.

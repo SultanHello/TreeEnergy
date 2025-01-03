@@ -8,42 +8,52 @@ import java.util.Map;
 // Factory Method Pattern is used here
 @Component
 public class DefaultCommandResponseFactory implements CommandResponseFactory {
+    // Predefined responses for commands
     private static final String ALLRULES = """
-            Команды, которые доступны в боте:
+            Commands available in the bot:
             
-            1) /viewTree - 📜 Просмотреть текущее дерево категорий.
+            1) /viewTree - 📜 View the current category tree.
             
-            2) /addElement <название элемента> - ➕ Добавить новый корневой элемент.
+            2) /addElement <element name> - ➕ Add a new root element.
             
-            3) /addElement <родитель> <дочерний элемент> - ➕ Добавить дочерний элемент к существующему родителю.
+            3) /addElement <parent> <child element> - ➕ Add a child element to an existing parent.
             
-            4) /removeElement <название элемента> - 🗑️ Удалить категорию и всех её потомков.
+            4) /removeElement <element name> - 🗑️ Remove a category and all its descendants.
             
-            5) /help - ℹ️ Список доступных команд.""";
+            5) /help - ℹ️ List of available commands.""";
 
     private static final String START = """
-            Приветствую вас в Category Bot! 👋
-            Здесь вы можете легко управлять деревом категорий.
-            Введите "/help", чтобы ознакомиться с возможностями бота.
+            Welcome to Category Bot! 👋
+            Here you can easily manage the category tree.
+            Type "/help" to learn about the bot's capabilities.
             """;
 
     private static final String UNKNOWN =
-            "❌ Команда не распознана. Напишите /help, чтобы увидеть список доступных команд.";
+            "❌ Command not recognized. Type /help to see the list of available commands.";
+
 
     private final Map<String, String> predefinedResponses = new HashMap<>();
-
+    /**
+     * Initializes the factory with predefined responses for certain commands.
+     */
     public DefaultCommandResponseFactory() {
         predefinedResponses.put("/start", START);
         predefinedResponses.put("/help", ALLRULES);
 
     }
 
+    /**
+     * Creates a response based on the user's message text.
+     *
+     * @param messageText the command or message text received from the user.
+     * @return the generated response, or an unknown command message if the command is not predefined.
+     */
     @Override
     public String createResponse(String messageText) {
         if (predefinedResponses.containsKey(messageText)) {
             return predefinedResponses.get(messageText);
         }
 
-        return UNKNOWN;
+        return UNKNOWN;// Return a default unknown command message
     }
 }

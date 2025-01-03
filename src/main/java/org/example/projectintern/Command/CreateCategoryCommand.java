@@ -19,8 +19,9 @@ public class CreateCategoryCommand implements Command {
 
 
     private final CategoryService categoryService;
+    // Constructor for creating the command to add a category
     public CreateCategoryCommand(CategoryService categoryService){
-        this.categoryService = categoryService;
+        this.categoryService = categoryService; // Store the reference to the category service
     }
 
 

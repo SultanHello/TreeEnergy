@@ -22,6 +22,9 @@ import java.util.Optional;
 
 public class CategoryImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+    /**
+     * Constructor for CategoryImpl to initialize the repository.
+     */
     public CategoryImpl(CategoryRepository categoryRepository){
         this.categoryRepository =categoryRepository;
 
@@ -47,6 +50,7 @@ public class CategoryImpl implements CategoryService {
             log.warn("Category with name {} already exists for chatId: {}", name, chatId);
             return "A category with the name " + name + " already exists. Please provide another name for the root category.";
         }
+
         Category category = createCategory(name, chatId);
         categoryRepository.save(category);
         log.info("Root category with name: {} successfully added for chatId: {}", name, chatId);
@@ -171,6 +175,22 @@ public class CategoryImpl implements CategoryService {
     public List<Category> findByParentIsNullAndChatId(Long chatId) {
         return categoryRepository.findByParentIsNullAndChatId(chatId);
     }
+
+
+
+    /**
+     * Retrieves a list of categories associated with a specific chat ID.
+     *
+     * @param chatId the ID of the chat to search for categories
+     * @return a list of categories belonging to the given chat ID
+     */
+    @Override
+    public List<Category> findByChatId(Long chatId) {
+        return categoryRepository.findByChatId(chatId);
+    }
+
+
+
 
     /**
      * Viewing the category tree for the given chat.

@@ -18,9 +18,9 @@ public class DeleteCategoryCommand implements Command {
 
 
     private final CategoryService categoryService;
+    // Constructor for creating the command to delete a category
     public DeleteCategoryCommand(CategoryService categoryService){
-        this.categoryService = categoryService;
-
+        this.categoryService = categoryService; // Store the reference to the category service
     }
 
 

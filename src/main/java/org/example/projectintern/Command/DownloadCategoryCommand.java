@@ -20,11 +20,10 @@ import java.util.List;
 
 public class DownloadCategoryCommand implements Command{
     private final CategoryService categoryService;
+    // Constructor for creating the command to download a category
     public DownloadCategoryCommand(CategoryService categoryService){
-        this.categoryService = categoryService;
-
+        this.categoryService = categoryService; // Store the reference to the category service
     }
-    private static final Logger log = LoggerFactory.getLogger(TelegramBotConfig.class);
 
 
 
@@ -39,7 +38,11 @@ public class DownloadCategoryCommand implements Command{
      */
     @Override
     public Object execute(String command, Long chatId) throws IOException {
-        List<Category> categories =categoryService.findByParentIsNullAndChatId(chatId);
+        List<Category> categories =categoryService.findByChatId(chatId);
+        for(int i = 0;i<categories.size();i++){
+            System.out.println(categories.get(i).getName());
+        }
+        System.out.println(categories);
         byte[] excelFile = ExcelGenerator.generateExcelFile(categories);
 
         // Sending a file to the user

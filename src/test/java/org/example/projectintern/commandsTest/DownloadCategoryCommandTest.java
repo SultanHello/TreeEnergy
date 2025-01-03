@@ -25,7 +25,7 @@ class DownloadCategoryCommandTest {
         CategoryService mockCategoryService = mock(CategoryService.class);
 
         // Return an empty list of categories
-        when(mockCategoryService.findByParentIsNullAndChatId(chatId))
+        when(mockCategoryService.findByChatId(chatId))
                 .thenReturn(Collections.emptyList());
 
         DownloadCategoryCommand commandUnderTest = new DownloadCategoryCommand(mockCategoryService);
@@ -44,7 +44,7 @@ class DownloadCategoryCommandTest {
 
         // Verify that CategoryService was called
         verify(mockCategoryService, times(1))
-                .findByParentIsNullAndChatId(chatId);
+                .findByChatId(chatId);
 
         // Ensure no additional calls were made
         verifyNoMoreInteractions(mockCategoryService);
