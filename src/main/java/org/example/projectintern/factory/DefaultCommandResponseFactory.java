@@ -20,7 +20,9 @@ public class DefaultCommandResponseFactory implements CommandResponseFactory {
             
             4) /removeElement <element name> - 🗑️ Remove a category and all its descendants.
             
-            5) /help - ℹ️ List of available commands.""";
+            5) /download - 📥 Download the category tree as a table.
+            
+            6) /help - ℹ️ List of available commands.""";
 
     private static final String START = """
             Welcome to Category Bot! 👋
